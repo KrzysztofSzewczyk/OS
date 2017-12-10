@@ -1,0 +1,54 @@
+color green/black black/light-gray
+title Boot OS (Floppy A)
+    kernel (fd0)/boot/kernel.com
+title Boot OS (Floppy B)
+    kernel (fd0)/boot/kernel.com
+title fd0 <-> fd1  (Swap floppy drives)
+    map (fd0) (fd1)
+    map (fd1) (fd0)
+    pause Floppy drives are swapped now!  Press any key to continue.
+title Set QWERTY keyboard layout
+    setkey y y
+    setkey z z
+    setkey w w
+    setkey a a
+    setkey q q
+    setkey m m
+    setkey comma comma
+    setkey period period
+    setkey semicolon semicolon
+    setkey colon colon
+title Set QWERTZ keyboard layout
+    setkey z y
+    setkey y z
+    setkey w w
+    setkey a a
+    setkey q q
+    setkey m m
+    setkey comma comma
+    setkey period period
+    setkey semicolon semicolon
+    setkey colon colon
+title Set AZERTY keyboard layout
+    setkey a q
+    setkey q a
+    setkey w z
+    setkey z w
+    setkey y y
+    setkey m comma
+    setkey comma semicolon
+    setkey period colon
+    setkey semicolon m
+title Change colours: grey
+    color black/light-gray white/blue
+title Change colours: black
+    color green/black black/light-gray
+title Change colours: blue
+    color white/blue yellow/magenta
+title Change colours: cyan
+    color black/cyan yellow/blue
+title Reboot
+    reboot
+title Halt / Power
+    halt
+
