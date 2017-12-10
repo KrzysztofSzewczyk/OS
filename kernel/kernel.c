@@ -118,8 +118,27 @@ unsigned char kblayout[128] = {
     0,	/* All other keys are undefined */
 };
 
-
-
+char getScancode() { /*Work, DAMN!*/
+    char c=0;
+    do {
+        if(inportb(0x60)!=c) {
+            c=inportb(0x60);
+            if(c>0){
+				return c;
+			}
+        }
+    } while(1);
+}
+void reboot() {
+    uint8_t good = 0x02;
+    while (good & 0x02)
+        good = inportb(0x64);
+    outportb(0x64, 0xFE);
+    for(;;);
+}
+char scancodeToCharacter (char scancode){
+	return kblayout[scancode-1];
+}
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
