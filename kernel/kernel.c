@@ -10,6 +10,8 @@
 #error "Tylko x86!"
 #endif
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 /*Funkcje z LIBC. Kopiowklejka*/
 
 unsigned short *textmemptr;
@@ -45,6 +47,82 @@ unsigned char inb (unsigned short _port) {
 void outb (unsigned short _port, unsigned char _data) {
     __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
+int atoi(register char *string) {
+    register int result = 0;
+    register unsigned int digit;
+    int sign;
+    if (*string == '-') {
+		sign = 1;
+		string += 1;
+    } else {
+		sign = 0;
+		if (*string == '+') {
+			string += 1;
+		}
+    }
+    for ( ; ; string += 1) {
+		digit = *string - '0';
+		if (digit > 9) {
+			break;
+		}
+		result = (10*result) + digit;
+    }
+    if (sign) {
+		return -result;
+    }
+    return result;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+//KEYBOARD
+
+//Layout
+unsigned char kblayout[128] = {
+    0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
+  '9', '0', '-', '=', '\b',	/* Backspace */
+  '\t',			/* Tab */
+  'q', 'w', 'e', 'r',	/* 19 */
+  't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',		/* Enter key */
+    0,			/* 29   - Control */
+  'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
+ '\'', '`',   0,		/* Left shift */
+ '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
+  'm', ',', '.', '/',   0,					/* Right shift */
+  '*',
+    0,	/* Alt */
+  ' ',	/* Space bar */
+    0,	/* Caps lock */
+    0,	/* 59 - F1 key ... > */
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,	/* < ... F10 */
+    0,	/* 69 - Num lock*/
+    0,	/* Scroll Lock */
+    0,	/* Home key */
+    0,	/* Up Arrow */
+    0,	/* Page Up */
+  '-',
+    0,	/* Left Arrow */
+    0,
+    0,	/* Right Arrow */
+  '+',
+    0,	/* 79 - End key*/
+    0,	/* Down Arrow */
+    0,	/* Page Down */
+    0,	/* Insert Key */
+    0,	/* Delete Key */
+    0,   0,   0,
+    0,	/* F11 Key */
+    0,	/* F12 Key */
+    0,	/* All other keys are undefined */
+};
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 void scroll(void) {
     unsigned blank, temp;
     blank = 0x20 | (attrib << 8);
@@ -114,7 +192,11 @@ void initdisplay(void) {
     textmemptr = (unsigned short *)0xB8000;
     cls();
 }
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 void kmain(void) {
 	initdisplay();
-	puts("Hello, kernel World!\n");
+	puts("They see me runnin', they hatin'!\n");
 }
