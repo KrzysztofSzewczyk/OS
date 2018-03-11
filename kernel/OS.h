@@ -1,5 +1,16 @@
 #ifndef _OS_H
 #define _OS_H
+#define true 1
+#define false 0
+
+#if defined(__linux__)
+#error "Please get crosscompiler - i686 elf tools"
+#endif
+ 
+#if !defined(__i386__)
+#error "Only x86!"
+#endif
+
 
 typedef int size_t;
 struct regs {

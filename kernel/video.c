@@ -35,25 +35,25 @@ void cls() {
 void putchar(unsigned char c) {
     unsigned short *where;
     unsigned att = attrib << 8;
-    if(c == 0x08) { /*backspace*/
+    if(c == 0x08) {
         if(csr_x != 0) csr_x--;
     }
     else if(c == 0x09) {
         csr_x = (csr_x + 8) & ~(8 - 1);
     }
-    else if(c == '\r') { /*CR*/
+    else if(c == '\r') {
         csr_x = 0;
     }
-    else if(c == '\n') { /*LF*/
+    else if(c == '\n') {
         csr_x = 0;
         csr_y++;
     }
-    else if(c >= ' ') { /*Spacja*/
+    else if(c >= ' ') {
         where = textmemptr + (csr_y * 80 + csr_x);
         *where = c | att;
         csr_x++;
     }
-    if(csr_x >= 80) { /*Kiedy koniec linii*/
+    if(csr_x >= 80) {
         csr_x = 0;
         csr_y++;
     }

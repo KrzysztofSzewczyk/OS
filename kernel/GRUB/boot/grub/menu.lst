@@ -2,7 +2,7 @@ color green/black black/light-gray
 title Boot OS (Floppy A)
     kernel (fd0)/boot/kernel.com
 title Boot OS (Floppy B)
-    kernel (fd0)/boot/kernel.com
+    kernel (fd1)/boot/kernel.com
 title fd0 <-> fd1  (Swap floppy drives)
     map (fd0) (fd1)
     map (fd1) (fd0)
