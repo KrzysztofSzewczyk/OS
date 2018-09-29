@@ -1,2 +1,2 @@
 # OS
-Operating System project.
+Operating System skeleton.
